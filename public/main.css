@@ -1,0 +1,127 @@
+body
+{
+  background-color: #ecdcdc;
+  color: #5d1110;
+  font-family:Tahoma;
+}
+
+#main_header
+{
+  font-family: Helvetica;
+}
+#main_header h1
+{
+  margin-bottom:0;
+  margin-top:0;
+  color: #9d1d1b;
+}
+#main_header h2
+{
+  margin-top: 0;
+  margin-bottom:0.2em;
+  margin-left: 10px;
+  font-weight:normal;
+}
+
+#main_nav ul
+{
+  margin-top:5px;
+  padding:0;
+}
+#main_nav li
+{
+  list-style: none;
+  display: inline-block;
+  padding:0;
+  background-color: #b9635e;
+  margin-bottom:3px;
+  
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+}
+#main_nav li a
+{
+  display:block;
+  width:100%;
+  height:100%;
+  padding:5px 10px 5px 10px;
+  color: #ecdcdc;
+  font-weight:bold;
+  text-decoration:none;
+}
+
+#main_content
+{
+  background-color: #e2c5c4;
+  padding: 20px 20px 20px 20px;
+  
+  -webkit-border-radius:3px;
+  -moz-border-radius:3px;
+  border-radius:3px;
+}
+#main_content h1
+{
+  margin-top: 0.1em;
+  margin-bottom: 0.2em;
+  font-size: 1.6em;
+}
+#main_content h2
+{
+  margin-top: 0.1em;
+  margin-bottom:0.2em;
+  font-size: 1.3em;
+}
+#main_content h3
+{
+  margin-top: 0.1em;
+  margin-bottom:0.2em;
+}
+#main_content p
+{
+  margin-top: 0.1em;
+  margin-bottom: 0.5em;
+}
+
+table#timetable
+{
+   border-collapse:collapse;
+   width:100%;
+}
+table#timetable th.rowheader
+{
+   width:1%;
+}
+table#timetable td
+{
+   border: solid 1px #000;
+   padding: 3px;
+   width: 19%;
+   text-align:center;
+}
+table#timetable td.section_end
+{
+   border-bottom: 3px solid #000;
+}
+table#timetable td textarea
+{
+   width:97%;
+   background-color:#e2c5c4;
+   border:none;
+   resize:none;
+}
+table#timetable td textarea.focus
+{
+   background-color:#ecdcdc;
+}
+table#timetable td.disabled
+{
+   background-color: #aaa;
+   border-bottom: 3px solid #000;
+}
+label
+{
+   width:6em;
+   display:inline-block;
+   vertical-align:top;
+}

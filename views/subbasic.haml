@@ -1,0 +1,18 @@
+%script{:type=>"text/javascript", :src=>url("http://code.jquery.com/jquery-1.10.1.min.js")}
+%script{:type=>"text/javascript", :src=>url("http://code.jquery.com/ui/1.10.3/jquery-ui.js")}
+%link{:rel=>"stylesheet", :type=>"text/css", :href=>url("http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")}
+%p="You are filing for substitution. Please select when you will be away"
+
+%form{:action=>"#", :method=>"post"}
+   
+   %div
+      %label{:for=>"reason"}="Reason: "
+      %textarea{:name=>"reason"}
+   %div
+      %label{:for=>"date"}="Date:"
+      %input#date{:type=>"text",:name=>"date", :value=>"From"}
+      %script
+         ="$('#date').datepicker({dateFormat: 'd MM yy'});"
+      %style
+         =".ui-datepicker{font-size: 70%; }"
+   %input{:type=>"submit"}

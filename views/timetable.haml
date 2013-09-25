@@ -1,0 +1,24 @@
+%script{:type=>"text/javascript", :src=>url("http://code.jquery.com/jquery-1.10.1.min.js")}
+%script{:type=>"text/javascript", :src=>url("autoexpand-textarea.js")}
+%script{:type=>"text/javascript", :src=>url("timetable.js")}
+
+%form{:method=>"post", :action=>"#"}
+   %table#timetable
+      %tr
+         -["","Monday","Tuesday","Wednesday","Thursday","Friday"].each do |day|
+            %th=day
+      -11.times do |period|
+         %tr
+            -6.times do |day|
+               -if day==0
+                  %th{:class=>"rowheader"}=period+1
+               -elsif day==5 && period+1==5
+                  %td{:class=>"disabled"}
+               -elsif day!=5 || period+1<10
+                  -if period+1==5 || period+1==9
+                     %td{:class=>"section_end"}
+                        %textarea{:id=>"#{day}.#{period+1}", :name=>"#{day}.#{period+1}"}
+                  -else
+                     %td
+                        %textarea{:id=>"#{day}.#{period+1}", :name=>"#{day}.#{period+1}"}
+   %input{:type=>"submit"}

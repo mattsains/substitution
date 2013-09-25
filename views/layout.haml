@@ -1,0 +1,35 @@
+!!!
+%html
+    %head
+        %link{:rel=>"stylesheet", :type=>"text/css", :href=>url("/main.css")}
+        
+        -if defined? @title
+            %title="Substitution - " + @title 
+        -else
+            %title="Substitution System"
+        
+    %body
+        %div#page_wrapper
+            %div#main_header
+                %h1="Substitution"
+                -if defined? @title
+                    %h2=@title
+            %div#main_nav
+                %ul
+                    %li
+                        %a{:href=>url('/')}="Home"
+                    %li
+                        %a{:href=>url("/about")}="About"
+                    -if defined? @user
+                        %a{:href=>url("/users/#{@user[:uname]}/profile")}
+                            %li="Profile"
+                    %li
+                        %a{:href=>url("/guides")}="Guides"
+                    %li
+                        %a{:href=>url("/forum")}="Forum"
+                    %li
+                        %a{:href=>url("/search")}="Search"
+        
+        
+            %div#main_content
+                =yield
