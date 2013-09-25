@@ -2,3 +2,5 @@
 thumbs.db
 run.bat
 Gemfile.lock
+config.rb
+substitution.db

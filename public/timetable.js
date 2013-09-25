@@ -8,6 +8,10 @@ $(document).ready(function()
       else
          $(this).removeClass("focus");
    });
+   $('table#timetable td textarea').filter(function(){
+      var $this = $(this);
+      return $this.children().length == 0 && $.trim($this.text()).length > 0;
+   }).show();
    $('table#timetable td:has(textarea)').click(function()
    {
       //gets triggered when a div is clicked

@@ -13,7 +13,7 @@ class Period
    validates_with_method :check_date
    
    def check_date
-      if self.date.wday.between?(1,5)
+      if self.date.wday.between?(1,6)
         return true
       else
         [ false, "Substitution only makes sense for weekdays" ]

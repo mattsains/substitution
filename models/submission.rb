@@ -10,6 +10,6 @@ class Submission
    belongs_to :teacher
    
    def publish
-      self.inprog=false
+      @inprog=false
    end
 end

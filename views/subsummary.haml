@@ -1,0 +1,6 @@
+%h3="Reason:"
+%p=@submission.reason
+
+-@periods.each do |period|
+   %h4="#{period.date}, period #{period.period}:"
+   %p=period.work

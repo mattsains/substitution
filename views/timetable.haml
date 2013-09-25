@@ -2,11 +2,13 @@
 %script{:type=>"text/javascript", :src=>url("autoexpand-textarea.js")}
 %script{:type=>"text/javascript", :src=>url("timetable.js")}
 
-%form{:method=>"post", :action=>"#"}
+%form#timetable_work{:method=>"post", :action=>"#"}
+   %input{:type=>"hidden", :name=>"date", :value=>@date.to_s}
    %table#timetable
       %tr
-         -["","Monday","Tuesday","Wednesday","Thursday","Friday"].each do |day|
-            %th=day
+         %th
+         -5.times do |i|
+            %th=@date.next_day(i).strftime("%A %e/%m")
       -11.times do |period|
          %tr
             -6.times do |day|
@@ -17,8 +19,12 @@
                -elsif day!=5 || period+1<10
                   -if period+1==5 || period+1==9
                      %td{:class=>"section_end"}
-                        %textarea{:id=>"#{day}.#{period+1}", :name=>"#{day}.#{period+1}"}
+                        %textarea{:id=>"#{day}.#{period+1}", :name=>"timetable[#{day}][#{period+1}]"}=@periods[day][period+1] if defined? @periods[day][period+1]
                   -else
                      %td
-                        %textarea{:id=>"#{day}.#{period+1}", :name=>"#{day}.#{period+1}"}
-   %input{:type=>"submit"}
+                        %textarea{:id=>"#{day}.#{period+1}", :name=>"timetable[#{day}][#{period+1}]"}=@periods[day][period+1] if defined? @periods[day][period+1]
+   %input#direction{:type=>"hidden",:name=>"direction", :value=>"done"}
+   %input#prev{:type=>"submit", :value=>"<<", :onclick=>"$('input#direction').val('prev');"}
+   %input#done{:type=>"submit", :value=>"Done", :onclick=>"$('input#direction').val('done');"}
+   %input#next{:type=>"submit", :value=>">>", :onclick=>"$('input#direction').val('next');"}
+   
