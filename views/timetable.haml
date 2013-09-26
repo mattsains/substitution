@@ -19,10 +19,16 @@
                -elsif day!=5 || period+1<10
                   -if period+1==5 || period+1==9
                      %td{:class=>"section_end"}
-                        %textarea{:id=>"#{day}.#{period+1}", :name=>"timetable[#{day}][#{period+1}]"}=@periods[day][period+1] if defined? @periods[day][period+1]
+                        %div
+                           %label{:for=>"room"}="Room:"
+                           %input{:type=>"text", :name=>"rooms[#{day}][#{period+1}]", :value=>(@periods[day][period+1][:room] if defined? @periods[day][period+1][:work])}
+                        %textarea{:id=>"#{day}.#{period+1}", :name=>"timetable[#{day}][#{period+1}]"}=@periods[day][period+1][:work] if defined? @periods[day][period+1][:work]
                   -else
                      %td
-                        %textarea{:id=>"#{day}.#{period+1}", :name=>"timetable[#{day}][#{period+1}]"}=@periods[day][period+1] if defined? @periods[day][period+1]
+                        %div
+                           %label{:for=>"room"}="Room:"
+                           %input{:type=>"text", :name=>"rooms[#{day}][#{period+1}]", :value=>(@periods[day][period+1][:room] if defined? @periods[day][period+1][:work])}
+                        %textarea{:id=>"#{day}.#{period+1}", :name=>"timetable[#{day}][#{period+1}]"}=@periods[day][period+1][:work] if defined? @periods[day][period+1][:work]
    %input#direction{:type=>"hidden",:name=>"direction", :value=>"done"}
    %input#prev{:type=>"submit", :value=>"<<", :onclick=>"$('input#direction').val('prev');"}
    %input#done{:type=>"submit", :value=>"Done", :onclick=>"$('input#direction').val('done');"}

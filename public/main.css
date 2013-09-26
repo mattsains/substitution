@@ -106,13 +106,17 @@ table#timetable td.section_end
 table#timetable td textarea
 {
    width:97%;
-   background-color:#e2c5c4;
-   border:none;
    resize:none;
 }
-table#timetable td textarea.focus
+table#timetable td.unfocused textarea,
+table#timetable td.unfocused input
 {
-   background-color:#ecdcdc;
+   background-color: #e2c5c4;
+   border:0;
+}
+table#timetable td.hidden *
+{
+   display:none;
 }
 table#timetable td.disabled
 {

@@ -5,6 +5,7 @@ end
 require './config.rb' #some configuration options
 require './models/index.rb' #this script loads data mapper
 require './sections/auth.rb'
+require './sections/submit'
 
 get '/' do
    @teacher=Teacher.current(request)
@@ -12,4 +13,3 @@ get '/' do
    haml :home
 end
 
-require './sections/submit'

@@ -6,6 +6,7 @@ class Period
    property :id,     Serial
    property :date,   Date
    property :period, Integer
+   property :room,   String
    property :work,   Text
    
    belongs_to :submission

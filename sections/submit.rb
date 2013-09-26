@@ -30,7 +30,8 @@ get '/submit/assign' do
       5.times { @periods<<Array.new(11) }
       
       periods.each do |period|
-         @periods[period.date-@date][period.period]=period.work
+         
+         @periods[period.date-@date][period.period]={:room=>period.room, :work=>period.work}
       end
       haml :timetable
    end
@@ -49,9 +50,11 @@ post '/submit/assign' do
                   if !work.empty?
                      period=Period.first(:date=>date, :period=>j+1, :submission=>submission)
                      if period.nil?
-                        Period.create(:date=>date, :period=>j+1, :work=>request['timetable'][(i+1).to_s][(j+1).to_s], :submission=>submission)
+                        Period.create(:date=>date, :period=>j+1, :room=>request['rooms'][(i+1).to_s][(j+1).to_s], 
+                                      :work=>request['timetable'][(i+1).to_s][(j+1).to_s], :submission=>submission)
                      else
-                        period.update(:work=>request['timetable'][(i+1).to_s][(j+1).to_s])
+                        period.update(:room=>request['rooms'][(i+1).to_s][(j+1).to_s], 
+                                      :work=>request['timetable'][(i+1).to_s][(j+1).to_s])
                      end
                   end
                end
