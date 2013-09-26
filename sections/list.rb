@@ -5,5 +5,6 @@ get '/list' do
       @submissions=Submission.all(:teacher=>@teacher)
    end
    @title="List of Substitution"
+   @submissions.sort! {|x,y| y.days<=>x.days}
    haml :sublist
 end

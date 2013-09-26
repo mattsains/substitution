@@ -5,6 +5,10 @@
       %tr
          %th="Name"
          %th="Reason"
+         %th="Days"
+         %th="From"
+         %th="To"
+         %th="Periods"
       -@submissions.each do |submission|
          %tr
             %td=submission.teacher.name
@@ -13,3 +17,8 @@
                   %a{:href=>url('/submit/assign')}=submission.reason
                -else
                   %a{:href=>url('/submit/summary?id='+submission.id.to_s)}=submission.reason
+            %td=submission.days
+            %td=submission.startdate
+            %td=submission.enddate
+            %td=submission.periods
+            

@@ -18,8 +18,7 @@ get '/submit' do
 end
 
 post '/submit' do
-   teacher=Teacher.first_or_create(:code=>"MS")
-   submission=Submission.create(:reason=>request['reason'], :teacher=>teacher)
+   submission=Submission.create(:reason=>request['reason'], :teacher=>@teacher)
    redirect '/submit/assign?date='+Date.parse(request['date']).to_s
 end
 
@@ -92,7 +91,7 @@ end
 get '/submit/summary' do
    @title="Substitution Submission"
    @submission=Submission.get(params['id'])
-   if !@submission || (@teacher!=submission.teacher && !@teacher.admin)
+   if !@submission || (@teacher!=@submission.teacher && !@teacher.admin)
       status 404
    else
       @periods=Period.all(:submission=>@submission, :order=>[:period.asc])
