@@ -1,0 +1,15 @@
+-if @submissions.empty?
+   %p="There are no substitution requests filed"
+-else
+   %table.sublist
+      %tr
+         %th="Name"
+         %th="Reason"
+      -@submissions.each do |submission|
+         %tr
+            %td=submission.teacher.name
+            %td
+               -if submission.inprog
+                  %a{:href=>url('/submit/assign')}=submission.reason
+               -else
+                  %a{:href=>url('/submit/summary?id='+submission.id.to_s)}=submission.reason

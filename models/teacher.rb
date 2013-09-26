@@ -4,6 +4,7 @@ class Teacher
    #properties
    property :code,   String, :key=>true, :length=>2
    property :name,   String
+   property :admin,  Boolean, :default=>false
    
    property :psw_salt,         String, :accessor=>:private
    property :psw_hash,         String, :accessor=>:private

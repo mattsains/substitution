@@ -6,3 +6,7 @@ use Rack::Auth::Basic, "Substitution System" do |username,password|
       end
    end
 end
+
+before do
+   @teacher=Teacher.current(request)
+end

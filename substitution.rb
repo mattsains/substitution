@@ -6,10 +6,9 @@ require './config.rb' #some configuration options
 require './models/index.rb' #this script loads data mapper
 require './sections/auth.rb'
 require './sections/submit'
+require './sections/list'
 
 get '/' do
-   @teacher=Teacher.current(request)
-   #@teacher=Teacher.get(request['REMOTE_USER']);
    haml :home
 end
 

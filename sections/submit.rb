@@ -90,10 +90,16 @@ post '/submit/assign' do
 end
 
 get '/submit/summary' do
+   @title="Substitution Submission"
    @submission=Submission.get(params['id'])
-   @periods=Period.all(:submission=>@submission, :order=>[:period.asc])
-   if defined? request['new']
-      @message="Successfully submitted request for substitution!"
+   if !@submission || (@teacher!=submission.teacher && !@teacher.admin)
+      status 404
+   else
+      @periods=Period.all(:submission=>@submission, :order=>[:period.asc])
+      if defined? request['new']
+         @message="Successfully submitted request for substitution!"
+         @suppressback=true
+      end
+      haml :subsummary
    end
-   haml :subsummary
 end
