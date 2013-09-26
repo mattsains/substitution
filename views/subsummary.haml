@@ -1,7 +1,15 @@
+-if defined? @message
+   %h2=@message
+   %br
+
 %h3="Reason:"
 %p=@submission.reason
 
--@periods.each do |period|
-   %h4="#{period.date}, period #{period.period}:"
-   %h5=period.room
-   %p=period.work
+-group_by_date(@periods).each do |date,periods|
+   %h3.date=date
+   -periods.each do |period|
+      %p.periodwork
+         %span="Period #{period.period} (#{period.room})"
+         %br
+         =period.work
+%a{:href=>url("/")}="Back home"

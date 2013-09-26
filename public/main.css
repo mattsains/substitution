@@ -129,3 +129,19 @@ label
    display:inline-block;
    vertical-align:top;
 }
+
+#main_content h3.date
+{
+   margin-top:20px;
+}
+p.periodwork
+{
+   margin:10px;
+   padding:3px;
+   max-width:1000px;
+   background-color:#b9635e;
+}
+p.periodwork span
+{
+   font-weight:bold;
+}

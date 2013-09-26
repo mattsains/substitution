@@ -1,9 +1,21 @@
+DataMapper::Model.raise_on_save_failure = true
+
+helpers do
+   #groups periods by date
+   def group_by_date(periods)
+      output={}
+      periods.each do |period|
+         output[period.date]||=[]
+         output[period.date]<<period
+      end
+      return output
+   end
+end
+
 get '/submit' do
    @title="File for substitution"
    haml :subbasic
 end
-
-DataMapper::Model.raise_on_save_failure = true
 
 post '/submit' do
    teacher=Teacher.first_or_create(:code=>"MS")
@@ -73,12 +85,15 @@ post '/submit/assign' do
          redirect '/submit/assign?date='+(Date.parse(request['date'])-7).to_s
       else
          submission.update(:inprog=>false)
-         redirect('/submit/summary?id='+submission.id.to_s)
+         redirect('/submit/summary?new=1&id='+submission.id.to_s)
    end
 end
 
 get '/submit/summary' do
    @submission=Submission.get(params['id'])
-   @periods=Period.all(:submission=>@submission)
+   @periods=Period.all(:submission=>@submission, :order=>[:period.asc])
+   if defined? request['new']
+      @message="Successfully submitted request for substitution!"
+   end
    haml :subsummary
 end
