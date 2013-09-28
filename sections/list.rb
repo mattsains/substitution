@@ -24,7 +24,7 @@ end
 get '/list/substitution' do
    if request['date'] && date=Date.parse(request['date'])
       #Show only a certain date (in the table format)
-      @periods=Period.all(:date=>date, :order=>[:period.asc])
+      @periods=Submission.all(:inprog=>false).periods.all(:date=>date, :order=>[:period.asc])
       @title="Substitution for "+date.strftime('%A, %-d %b %Y')
       @date=date
       @view=:table
@@ -52,6 +52,10 @@ helpers do
    
    def group_by_teacher(periods)
       return group_by(periods) {|p| p.submission.teacher}
+   end
+   
+   def group_by_sub(periods)
+      return group_by(periods) {|p| p.substitute}
    end
    
    def group_by(periods)

@@ -9,6 +9,7 @@ class Submission
    property :inprog, Boolean, :default=>true
    
    belongs_to :teacher
+   has n, :periods
    
    def periods
       return Period.count(:submission=>self)

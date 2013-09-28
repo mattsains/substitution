@@ -7,13 +7,13 @@
    %span.err&=@err
 %form{:action=>"#", :method=>"post"}
    %div
-      %label{:for=>"name"}="For:"
+      %label.fixed_width{:for=>"name"}="For:"
       %input{:type=>"text", :name=>"name", :disabled=>true, :value=>@teacher.name}
    %div
-      %label{:for=>"reason"}="Reason: "
+      %label.fixed_width{:for=>"reason"}="Reason: "
       %textarea{:name=>"reason"}
    %div
-      %label{:for=>"date"}="Start Date:"
+      %label.fixed_width{:for=>"date"}="Start Date:"
       %input#date{:type=>"text",:name=>"date"}
       %script
          ="$('#date').datepicker({dateFormat: 'd MM yy'});"

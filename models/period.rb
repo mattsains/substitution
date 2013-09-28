@@ -11,6 +11,7 @@ class Period
    
    belongs_to :submission
    
+   belongs_to :substitute, 'Teacher', :required=>false
    validates_with_method :check_date
    
    def check_date

@@ -132,7 +132,7 @@ table td.disabled
    background-color: #aaa;
    border-bottom: 3px solid #000;
 }
-label
+label.fixedwidth
 {
    width:10em;
    display:inline-block;

@@ -4,14 +4,14 @@
       -if @err && @err[:current]
          %span.err&=@err[:current]
       %div
-         %label{:for=>"current"}="Current Password:"
+         %label.fixed_width{:for=>"current"}="Current Password:"
          %input{:type=>"password", "name"=>"current"}
    -if @err && @err[:new]
       %span.err&=@err[:new]
    %div
-      %label{:for=>"new"}="New Password:"
+      %label.fixed_width{:for=>"new"}="New Password:"
       %input{:type=>"password", "name"=>"new"}
    %div
-      %label{:for=>"new2"}="Again:"
+      %label.fixed_width{:for=>"new2"}="Again:"
       %input{:type=>"password", "name"=>"new2"}
    %input{:type=>"submit", :value=>"Change Password"}

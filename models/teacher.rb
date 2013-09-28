@@ -10,6 +10,8 @@ class Teacher
    property :psw_salt,         String, :accessor=>:private
    property :psw_hash,         String, :accessor=>:private
    
+   has n, :submissions
+   
    #validation
    validates_length_of  :code, :min=>2, :max=>2
    

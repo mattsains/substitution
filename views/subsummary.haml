@@ -6,9 +6,14 @@
 -#    Shows periods grouped by date. This works for pretty much any combination of periods
 -#
 -#       :table
--#    Shows a table for *a single day* of substitution, grouped by the teacher that submitted it
+-#    Shows a table for *a single day* of substitution, grouped by the substitute assigned
 -#     This is designed to look the same as the paper printouts that are generated and distributed at Alex
 -#     Requires a @date variable to figure out the timetable scheme for that day
+-#
+-#       :assign
+-#    Same as :table, but is an interface to assign substitutes. 
+-#     Instead of being grouped by substitute, it is grouped by the teacher who submitted it
+-#     Requires @substitutes variable containing initial values (can be empty, but not nil)
 
 -if @view==:new
    %h2="Substitution submitted!"
@@ -27,45 +32,25 @@
             %br
             &=period.work
             
--if @view==:table
+-if @view==:table || @view==:assign
    %link{:rel=>"stylesheet", :type=>"text/css", :media=>"print", :href=>"/print-timetable.css"}
    %h3.date=@date.strftime('%A, %-d %b %Y')
    %br
-   -teacherperiods=group_by_teacher(@periods)
+   -if @view==:assign
+      -teacherperiods=group_by_teacher(@periods)
+   -else
+      -teacherperiods=group_by_sub(@periods).reject {|t,p| !t}
    -if teacherperiods.empty?
       %p="No substitution for today!"
+      -if !(@view==:assign || group_by_sub(@periods).empty?)
+         %span.err="Warning: Substitution might not have been assigned yet (there are people absent)"
    -else
-      %table
-         
-         %tr
-            %th
-            -teacherperiods.each do |teacher,periods|
-               %th&=teacher.code
-         -nperiods=(@date.friday? && 10)|| 11
-         -nperiods.times do |i|
-            %tr
-               %th=i+1
-               -if @date.friday? && i+1==5
-                  -teacherperiods.each do
-                     %td.disabled
-               -elsif !(@date.friday? && i+1>10)
-                  -#should only be one period per actual period per teacher
-                  -teacherperiods.each do |teacher,period|
-                     -teacherperiod=period.find {|p| p.period==i+1 && p.submission.teacher==teacher}
-                     -if teacherperiod
-                        -if i+1==5 || (i+1==9 && !@date.friday?)
-                           %td.section_end
-                              %span.room&=teacherperiod.room
-                              %p&=teacherperiod.work
-                        -else
-                           %td
-                              %span.room&=teacherperiod.room
-                              %p&=teacherperiod.work
-                     -else
-                        -if i+1==5 || (i+1==9 && !@date.friday?)
-                           %td.section_end
-                        -else
-                           %td
+      -if @view==:assign
+         %form{:action=>"#", :method=>"post"}
+            =render :haml, :p_summarytable, :locals=>{:teacherperiods=>teacherperiods}
+      -else
+         =render :haml, :p_summarytable, :locals=>{:teacherperiods=>teacherperiods}
+      
       
 -if !@view==:new
    %a{:href=>url("/")}="Back home"

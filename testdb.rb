@@ -3,4 +3,4 @@ require './config.rb'
 
 require './models/index.rb'
 
-DataMapper.auto_migrate!
+DataMapper.auto_upgrade!
