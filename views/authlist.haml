@@ -1,0 +1,14 @@
+%table
+   %tr
+      %th="Code"
+      %th="Name"
+   -@teachers.each do |teacher|
+      %tr
+         %td&=teacher.code
+         %td&=teacher.name
+         %td
+            %a{:href=>url("/list?code=#{teacher.code}")}="Substitution"
+         %td
+            %a{:href=>url("/auth/passwd?code=#{teacher.code}")}="Change password"
+         %td
+            %a{:href=>url("/auth/delete?code=#{teacher.code}")}="Delete"

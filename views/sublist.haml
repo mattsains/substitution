@@ -11,12 +11,12 @@
          %th="Periods"
       -@submissions.each do |submission|
          %tr
-            %td=submission.teacher.name
+            %td&=submission.teacher.name
             %td
                -if submission.inprog
-                  %a{:href=>url('/submit/assign')}=submission.reason
+                  %a{:href=>url('/submit/assign')}&=submission.reason
                -else
-                  %a{:href=>url('/submit/summary?id='+submission.id.to_s)}=submission.reason
+                  %a{:href=>url('/list/substitution?id='+submission.id.to_s)}&=submission.reason
             %td=submission.days
             %td=submission.startdate
             %td=submission.enddate

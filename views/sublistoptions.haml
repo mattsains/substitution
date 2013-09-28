@@ -2,21 +2,15 @@
 %script{:type=>"text/javascript", :src=>url("http://code.jquery.com/ui/1.10.3/jquery-ui.js")}
 %link{:rel=>"stylesheet", :type=>"text/css", :href=>url("http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")}
 
-%p="You are filing for substitution. Please select when you will be away"
--if @err
-   %span.err&=@err
-%form{:action=>"#", :method=>"post"}
+%a{:href=>url("/list/all")}="List All"
+%br
+%br
+%form{:action=>url("/list/substitution"), :method=>"get"}
    %div
-      %label{:for=>"name"}="For:"
-      %input{:type=>"text", :name=>"name", :disabled=>true, :value=>@teacher.name}
-   %div
-      %label{:for=>"reason"}="Reason: "
-      %textarea{:name=>"reason"}
-   %div
-      %label{:for=>"date"}="Start Date:"
+      %label{:for=>"date"}="Show substitution for"
       %input#date{:type=>"text",:name=>"date"}
       %script
          ="$('#date').datepicker({dateFormat: 'd MM yy'});"
       %style
          =".ui-datepicker{font-size: 70%; }"
-   %input{:type=>"submit"}
+      %input{:type=>"submit", :value=>"show"}

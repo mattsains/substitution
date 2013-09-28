@@ -1,16 +1,71 @@
--if @message.nil?
-   %h2=@message
+-#Some documentation:
+-# @view=:new
+-#    Same as :simpledate, but displays a confirmation message for a new submission
+-#
+-#       :simpledate
+-#    Shows periods grouped by date. This works for pretty much any combination of periods
+-#
+-#       :table
+-#    Shows a table for *a single day* of substitution, grouped by the teacher that submitted it
+-#     This is designed to look the same as the paper printouts that are generated and distributed at Alex
+-#     Requires a @date variable to figure out the timetable scheme for that day
+
+-if @view==:new
+   %h2="Substitution submitted!"
    %br
 
-%h3="Reason:"
-%p=@submission.reason
+-if @submission
+   %h3="Reason:"
+   %p&=@submission.reason
 
--group_by_date(@periods).each do |date,periods|
-   %h3.date=date.strftime('%A, %-d %b %Y')
-   -periods.each do |period|
-      %p.periodwork
-         %span="Period #{period.period} (#{period.room})"
-         %br
-         =period.work
--if !@suppressback
+-if @view==:new || @view==:simpledate
+   -group_by_date(@periods).each do |date,periods|
+      %h3.date=date.strftime('%A, %-d %b %Y')
+      -periods.each do |period|
+         %p.periodwork
+            %span&="Period #{period.period} (#{period.room})"
+            %br
+            &=period.work
+            
+-if @view==:table
+   %link{:rel=>"stylesheet", :type=>"text/css", :media=>"print", :href=>"/print-timetable.css"}
+   %h3.date=@date.strftime('%A, %-d %b %Y')
+   %br
+   -teacherperiods=group_by_teacher(@periods)
+   -if teacherperiods.empty?
+      %p="No substitution for today!"
+   -else
+      %table
+         
+         %tr
+            %th
+            -teacherperiods.each do |teacher,periods|
+               %th&=teacher.code
+         -nperiods=(@date.friday? && 10)|| 11
+         -nperiods.times do |i|
+            %tr
+               %th=i+1
+               -if @date.friday? && i+1==5
+                  -teacherperiods.each do
+                     %td.disabled
+               -elsif !(@date.friday? && i+1>10)
+                  -#should only be one period per actual period per teacher
+                  -teacherperiods.each do |teacher,period|
+                     -teacherperiod=period.find {|p| p.period==i+1 && p.submission.teacher==teacher}
+                     -if teacherperiod
+                        -if i+1==5 || (i+1==9 && !@date.friday?)
+                           %td.section_end
+                              %span.room&=teacherperiod.room
+                              %p&=teacherperiod.work
+                        -else
+                           %td
+                              %span.room&=teacherperiod.room
+                              %p&=teacherperiod.work
+                     -else
+                        -if i+1==5 || (i+1==9 && !@date.friday?)
+                           %td.section_end
+                        -else
+                           %td
+      
+-if !@view==:new
    %a{:href=>url("/")}="Back home"

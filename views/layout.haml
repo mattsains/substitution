@@ -2,9 +2,10 @@
 %html
    %head
       %link{:rel=>"stylesheet", :type=>"text/css", :href=>url("/main.css")}
+      %link{:rel=>"stylesheet", :type=>"text/css", :media=>"print", :href=>url("/print.css")}
 
    -if defined? @title
-      %title="Substitution - " + @title 
+      %title&="Substitution - " + @title 
    -else
       %title="Substitution System"
 
@@ -12,7 +13,7 @@
       %div#page_wrapper
          %div#main_header
             %h1="Substitution"
-            %h2=@title||"&nbsp;"
+            %h2&=@title||"&nbsp;"
          %div#main_nav
             %ul
                %li
@@ -20,7 +21,12 @@
                %li
                   %a{:href=>url("/submit")}="Submit"
                %li
-                  %a{:href=>url("/list")}="List"
+                  %a{:href=>url("/list")}="List Substitution"
+               -if @teacher.admin
+                  %li
+                     %a{:href=>url("auth/list")}="List Teachers"
+               %li
+                  %a{:href=>url("/auth/passwd")}="Change password"
 
 
          %div#main_content

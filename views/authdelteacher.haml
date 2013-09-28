@@ -1,0 +1,6 @@
+%p="Are you sure you want to delete this teacher?"
+%p&="Code: #{@delteacher.code}"
+%p&="Name: #{@delteacher.name}"
+%form{:action=>"#", :method=>"post"}
+   %input{:type=>"submit", :value=>"Delete"}
+   %input{:type=>"reset", :value=>"Cancel", :onclick=>"history.go(-1)"}

@@ -1,0 +1,17 @@
+%p="Changing password for #{@teacherchange.name}"
+%form#passwd{:method=>"post", :action=>"#"}
+   -if !@noverify
+      -if @err && @err[:current]
+         %span.err&=@err[:current]
+      %div
+         %label{:for=>"current"}="Current Password:"
+         %input{:type=>"password", "name"=>"current"}
+   -if @err && @err[:new]
+      %span.err&=@err[:new]
+   %div
+      %label{:for=>"new"}="New Password:"
+      %input{:type=>"password", "name"=>"new"}
+   %div
+      %label{:for=>"new2"}="Again:"
+      %input{:type=>"password", "name"=>"new2"}
+   %input{:type=>"submit", :value=>"Change Password"}

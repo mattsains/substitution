@@ -1,3 +1,4 @@
+require 'securerandom'
 class Teacher
    include DataMapper::Resource
    
@@ -14,6 +15,11 @@ class Teacher
    
    def correct? (pass)
       return (@psw_hash==hash_psw(pass,@psw_salt))
+   end
+   
+   def password=(value)
+      self.psw_salt=SecureRandom.hex
+      self.psw_hash=hash_psw(value,@psw_salt)
    end
    
    def self.current(request)
