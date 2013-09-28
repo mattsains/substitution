@@ -4,19 +4,19 @@
       %th
       -teacherperiods.each do |teacher,periods|
          %th&=teacher.code
-   -nperiods=(@date.friday? && 10)|| 11
+   -nperiods=(@date.friday? && 11)|| 12
    -nperiods.times do |i|
       %tr
-         %th=i+1
-         -if @date.friday? && i+1==5
+         %th=i==0?"R":i
+         -if @date.friday? && i==5
             -teacherperiods.each do
                %td.disabled
-         -elsif !(@date.friday? && i+1>10)
+         -elsif !(@date.friday? && i>10)
             -#should only be one period per actual period per teacher
             -teacherperiods.each do |teacher,period|
-               -teacherperiod=period.find {|p| p.period==i+1 && p.submission.teacher==teacher}
+               -teacherperiod=period.find {|p| p.period==i && p.submission.teacher==teacher}
                -if teacherperiod
-                  -if i+1==5 || (i+1==9 && !@date.friday?)
+                  -if i==5 || (i==9 && !@date.friday?)
                      %td.section_end
                         %span.room&=teacherperiod.room
                         -if @view==:assign
@@ -33,7 +33,7 @@
                               %input{:type=>"text",:name=>"substitutes[#{teacherperiod.id}]", :size=>2, :value=>@substitutes[teacherperiod.id]}
                         %p&=teacherperiod.work
                -else
-                  -if i+1==5 || (i+1==9 && !@date.friday?)
+                  -if i==5 || (i==9 && !@date.friday?)
                      %td.section_end
                   -else
                      %td

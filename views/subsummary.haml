@@ -28,7 +28,10 @@
       %h3.date=date.strftime('%A, %-d %b %Y')
       -periods.each do |period|
          %p.periodwork
-            %span&="Period #{period.period} (#{period.room})"
+            -if period.period==0
+               %span&="Registration (#{period.room})"
+            -else
+               %span&="Period #{period.period} (#{period.room})"
             %br
             &=period.work
             

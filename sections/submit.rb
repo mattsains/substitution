@@ -43,22 +43,22 @@ post '/submit/assign' do
    submission=Submission.first(:teacher=>Teacher.current(request), :inprog=>true)
    Period.transaction do |t|
       begin
-         5.times do |i|
-            date+=1
-            11.times do |j|
-               if work=request['timetable'][(i+1).to_s][(j+1).to_s]
+         5.times do |d|
+            12.times do |p|
+               if work=request['timetable'][(d+1).to_s][(p).to_s]
                   if !work.empty?
-                     period=Period.first(:date=>date, :period=>j+1, :submission=>submission)
+                     period=Period.first(:date=>date, :period=>p, :submission=>submission)
                      if period.nil?
-                        Period.create(:date=>date, :period=>j+1, :room=>request['rooms'][(i+1).to_s][(j+1).to_s], 
-                                      :work=>request['timetable'][(i+1).to_s][(j+1).to_s], :submission=>submission)
+                        Period.create(:date=>date, :period=>p, :room=>request['rooms'][(d+1).to_s][(p).to_s], 
+                                      :work=>request['timetable'][(d+1).to_s][(p).to_s], :submission=>submission)
                      else
-                        period.update(:room=>request['rooms'][(i+1).to_s][(j+1).to_s], 
-                                      :work=>request['timetable'][(i+1).to_s][(j+1).to_s])
+                        period.update(:room=>request['rooms'][(d+1).to_s][(p).to_s], 
+                                      :work=>request['timetable'][(d+1).to_s][(p).to_s])
                      end
                   end
                end
             end
+            date+=1
          end
       rescue DataMapper::SaveFailureError => e
          puts e.resource.errors.inspect

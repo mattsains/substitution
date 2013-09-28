@@ -9,26 +9,26 @@
          %th
          -5.times do |i|
             %th=@date.next_day(i).strftime("%A %e/%m")
-      -11.times do |period|
+      -12.times do |period|
          %tr
             -6.times do |day|
                -if day==0
-                  %th{:class=>"rowheader"}=period+1
-               -elsif day==5 && period+1==5
+                  %th{:class=>"rowheader"}=period!=0?period:"R"
+               -elsif day==5 && period==5
                   %td{:class=>"disabled"}
-               -elsif day!=5 || period+1<10
-                  -if period+1==5 || period+1==9
+               -elsif day!=5 || period<10
+                  -if period==5 || period==9
                      %td{:class=>"section_end"}
                         %div
                            %label{:for=>"room"}="Room:"
-                           %input{:type=>"text", :name=>"rooms[#{day}][#{period+1}]", :value=>(@periods[day][period+1][:room] if defined? @periods[day][period+1][:work])}
-                        %textarea{:id=>"#{day}.#{period+1}", :name=>"timetable[#{day}][#{period+1}]"}=@periods[day][period+1][:work] if defined? @periods[day][period+1][:work]
+                           %input{:type=>"text", :name=>"rooms[#{day}][#{period}]", :value=>(@periods[day][period][:room] if defined? @periods[day][period][:work])}
+                        %textarea{:id=>"#{day}.#{period}", :name=>"timetable[#{day}][#{period}]"}=@periods[day][period][:work] if defined? @periods[day][period][:work]
                   -else
                      %td
                         %div
                            %label{:for=>"room"}="Room:"
-                           %input{:type=>"text", :name=>"rooms[#{day}][#{period+1}]", :value=>(@periods[day][period+1][:room] if defined? @periods[day][period+1][:work])}
-                        %textarea{:id=>"#{day}.#{period+1}", :name=>"timetable[#{day}][#{period+1}]"}=@periods[day][period+1][:work] if defined? @periods[day][period+1][:work]
+                           %input{:type=>"text", :name=>"rooms[#{day}][#{period}]", :value=>(@periods[day][period][:room] if defined? @periods[day][period][:work])}
+                        %textarea{:id=>"#{day}.#{period}", :name=>"timetable[#{day}][#{period}]"}=@periods[day][period][:work] if defined? @periods[day][period][:work]
    %input#direction{:type=>"hidden",:name=>"direction", :value=>"done"}
    %input#prev{:type=>"submit", :value=>"<<", :onclick=>"$('input#direction').val('prev');"}
    %input#done{:type=>"submit", :value=>"Done", :onclick=>"$('input#direction').val('done');"}

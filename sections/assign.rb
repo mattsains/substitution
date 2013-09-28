@@ -5,7 +5,14 @@ get '/assign' do
       @title="Substitution for "+date.strftime('%A, %-d %b %Y')
       @date=date
       @view=:assign
-      @substitutes={}
+      substitutesarray=@periods.map do |period|
+         if period.substitute
+            [period.period, period.substitute.code]
+         else
+            [period.period, ""]
+         end
+      end
+      @substitutes=Hash[substitutesarray]
       haml :subsummary
    else
       @title="Assign Substitution"
