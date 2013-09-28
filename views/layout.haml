@@ -13,7 +13,10 @@
       %div#page_wrapper
          %div#main_header
             %h1="Substitution"
-            %h2&=@title||"&nbsp;"
+            -if @title?
+               %h2&=@title
+            -else
+               %h2="&nbsp;"
          %div#main_nav
             %ul
                %li
