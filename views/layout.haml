@@ -22,12 +22,14 @@
                %li
                   %a{:href=>url('/')}="Home"
                %li
-                  %a{:href=>url("/submit")}="Submit"
+                  %a{:href=>url("/submit")}="Request Substitution"
                %li
                   %a{:href=>url("/list")}="List Substitution"
                -if @teacher.admin
                   %li
-                     %a{:href=>url("auth/list")}="List Teachers"
+                     %a{:href=>url("/auth/list")}="List Teachers"
+                  %li
+                     %a{:href=>url("/assign")}="Assign Substitutes"
                %li
                   %a{:href=>url("/auth/passwd")}="Change password"
 

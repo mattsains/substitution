@@ -3,6 +3,8 @@
 %link{:rel=>"stylesheet", :type=>"text/css", :href=>url("http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")}
 
 %h3="Assign Substitution for:"
+-if @err
+   %span.err&=@err
 %form{:action=>"#", :method=>"get"}
    %div
       %label{:for=>"date"}="Date"

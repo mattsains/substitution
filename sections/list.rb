@@ -28,6 +28,7 @@ get '/list/substitution' do
       @title="Substitution for "+date.strftime('%A, %-d %b %Y')
       @date=date
       @view=:table
+      @periods.each {|x| puts x.inspect}
       haml :subsummary
    elsif request['id'] && @submission=Submission.get(params['id'])
       #Show a single submission all at once - used for when teachers submit substitution

@@ -1,5 +1,5 @@
 -# This partial renders the table view of subsummary.haml
-%table  
+%table
    %tr
       %th
       -teacherperiods.each do |teacher,periods|
@@ -14,9 +14,9 @@
          -elsif !(@date.friday? && i>10)
             -#should only be one period per actual period per teacher
             -teacherperiods.each do |teacher,period|
-               -teacherperiod=period.find {|p| p.period==i && p.submission.teacher==teacher}
+               -teacherperiod=period.find {|p| p.period==i}
                -if teacherperiod
-                  -if i==5 || (i==9 && !@date.friday?)
+                  -if i==5 || i==0 || (i==9 && !@date.friday?)
                      %td.section_end
                         %span.room&=teacherperiod.room
                         -if @view==:assign
@@ -33,7 +33,7 @@
                               %input{:type=>"text",:name=>"substitutes[#{teacherperiod.id}]", :size=>2, :value=>@substitutes[teacherperiod.id]}
                         %p&=teacherperiod.work
                -else
-                  -if i==5 || (i==9 && !@date.friday?)
+                  -if i==5 || i==0 || (i==9 && !@date.friday?)
                      %td.section_end
                   -else
                      %td

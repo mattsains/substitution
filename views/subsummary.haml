@@ -44,7 +44,10 @@
    -else
       -teacherperiods=group_by_sub(@periods).reject {|t,p| !t}
    -if teacherperiods.empty?
-      %p="No substitution for today!"
+      -if @date==Date.today
+         %p="No substitution for today!"
+      -else
+         %p="No substitution for this date!"
       -if !(@view==:assign || group_by_sub(@periods).empty?)
          %span.err="Warning: Substitution might not have been assigned yet (there are people absent)"
    -else

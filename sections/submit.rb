@@ -2,18 +2,22 @@ DataMapper::Model.raise_on_save_failure = true
 
 get '/submit' do
    @title="File for substitution"
-   @err=request['err'] || nil
    haml :subbasic
 end
 
 post '/submit' do
-   submission=Submission.create(:reason=>request['reason'], :teacher=>@teacher)
-   redirect '/submit/assign?date='+Date.parse(request['date']).to_s
+   begin
+      submission=Submission.create(:reason=>request['reason'], :teacher=>@teacher)
+      redirect '/submit/assign?date='+Date.parse(request['date']).to_s
+   rescue ArgumentError
+      @title="File for substitution"
+      @err="Invalid date \"#{request['date']}\""
+      haml :subbasic
+   end
 end
 
 get '/submit/assign' do
-   teacher=Teacher.current(request)
-   submission=Submission.first(:teacher=>teacher, :inprog=>true)
+   submission=Submission.first(:teacher=>@teacher, :inprog=>true)
    if !submission
       redirect '/submit'
    else

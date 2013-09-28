@@ -1,19 +1,25 @@
 get '/assign' do
-   if request['date'] && date=Date.parse(request['date'])
-      #Show only a certain date (in the assign[table] format)
-      @periods=Submission.all(:inprog=>false).periods.all(:date=>date, :order=>[:period.asc])
-      @title="Substitution for "+date.strftime('%A, %-d %b %Y')
-      @date=date
-      @view=:assign
-      substitutesarray=@periods.map do |period|
-         if period.substitute
-            [period.period, period.substitute.code]
-         else
-            [period.period, ""]
+   if request['date']
+      begin
+         #Show only a certain date (in the assign[table] format)
+         @date=Date.parse(request['date'])
+         @periods=Submission.all(:inprog=>false).periods.all(:date=>@date, :order=>[:period.asc])
+         @title="Substitution for "+@date.strftime('%A, %-d %b %Y')
+         @view=:assign
+         substitutesarray=@periods.map do |period|
+            if period.substitute
+               [period.period, period.substitute.code]
+            else
+               [period.period, ""]
+            end
          end
+         @substitutes=Hash[substitutesarray]
+         haml :subsummary
+      rescue ArgumentError
+         @title="Assign Substitution"
+         @err="Invalid date \"#{request['date']}\""
+         haml :assigndate
       end
-      @substitutes=Hash[substitutesarray]
-      haml :subsummary
    else
       @title="Assign Substitution"
       haml :assigndate
