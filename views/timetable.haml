@@ -21,14 +21,14 @@
                      %td{:class=>"section_end"}
                         %div
                            %label{:for=>"room"}="Room:"
-                           %input{:type=>"text", :name=>"rooms[#{day}][#{period}]", :value=>(@periods[day][period][:room] if defined? @periods[day][period][:work])}
-                        %textarea{:id=>"#{day}.#{period}", :name=>"timetable[#{day}][#{period}]"}=@periods[day][period][:work] if defined? @periods[day][period][:work]
+                           %input{:type=>"text", :name=>"rooms[#{day}][#{period}]", :value=>(@periods[day-1][period][:room] if defined? @periods[day-1][period][:work])}
+                        %textarea{:id=>"#{day}.#{period}", :name=>"timetable[#{day}][#{period}]"}=@periods[day-1][period][:work] if defined? @periods[day-1][period][:work]
                   -else
                      %td
                         %div
                            %label{:for=>"room"}="Room:"
-                           %input{:type=>"text", :name=>"rooms[#{day}][#{period}]", :value=>(@periods[day][period][:room] if defined? @periods[day][period][:work])}
-                        %textarea{:id=>"#{day}.#{period}", :name=>"timetable[#{day}][#{period}]"}=@periods[day][period][:work] if defined? @periods[day][period][:work]
+                           %input{:type=>"text", :name=>"rooms[#{day}][#{period}]", :value=>(@periods[day-1][period][:room] if defined? @periods[day-1][period][:work])}
+                        %textarea{:id=>"#{day}.#{period}", :name=>"timetable[#{day}][#{period}]"}=@periods[day-1][period][:work] if defined? @periods[day-1][period][:work]
    %input#direction{:type=>"hidden",:name=>"direction", :value=>"done"}
    %input#prev{:type=>"submit", :value=>"<<", :onclick=>"$('input#direction').val('prev');"}
    %input#done{:type=>"submit", :value=>"Done", :onclick=>"$('input#direction').val('done');"}
