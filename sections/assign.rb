@@ -8,9 +8,9 @@ get '/assign' do
          @view=:assign
          substitutesarray=@periods.map do |period|
             if period.substitute
-               [period.period, period.substitute.code]
+               [period.id, period.substitute.code]
             else
-               [period.period, ""]
+               [period.id, ""]
             end
          end
          @substitutes=Hash[substitutesarray]
